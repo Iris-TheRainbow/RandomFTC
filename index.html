@@ -2,7 +2,7 @@
   <head>
     <style>
       .center {
-        margin: auto;
+        margin: auto; 
         width: 60%;
         padding: 10px;
       }
@@ -10,18 +10,26 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script language="javascript">
       function getRandomTeam(){
-        while (true){
-          try{
-            var team = Math.trunc(Math.random() * (26508 - 1) + 1).toString();
-            axios.get("https://api.ftcscout.org/rest/v1/teams/" + team) 
-              .then(response => {
-              console.log(response);
-          });
-          break
-          } catch {
-            console.log("caught")
-          }
-        }
+    axios.post("https://api.ftcscout.org/graphql", {
+      query: `{
+                getBestName{
+                  team1{
+                    number
+                  }
+                }
+              }`})
+      .then(response => {
+        number = response.data.data.getBestName.team1.number;
+        axios.post("https://api.ftcscout.org/graphql", {
+        query: `{
+                getBestName{
+                  team1{
+                    number
+                  }
+                }
+              }`})
+      .then(response => {
+      });9
       }
     </script>
   </head>
