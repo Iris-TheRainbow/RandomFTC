@@ -22,7 +22,11 @@
         var number = (response.data.data.getBestName.team1.number).toString();
         axios.get("https://api.ftcscout.org/rest/v1/teams/" + number)
         .then(response => {
-          console.log(response.data)
+          console.log(response.data) // substitute for parsing data rn\
+          document.getElementById("citycountry").innerHTML = response.data.city + ", " + response.data.country;
+          document.getElementById("number").innerHTML = response.data.number;
+          document.getElementById("name").innerHTML = response.data.name;
+          document.getElementById("year").innerHTML = response.data.rookieYear;
       });
       });
     }
@@ -40,7 +44,7 @@
         Welcome to RandomFTC!
       </p>
       <p>
-        Your random FTC team:
+        Your random FTC team, fromm <b><span id="citycountry"></span></b>, FTC team <b><span id="number"></span></b>, is <b><span id="name"></span></b>. Their rookie year was <b><span id="year"></span></b>
       </p>
       
     </div> 
