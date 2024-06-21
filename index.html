@@ -10,12 +10,18 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script language="javascript">
       function getRandomTeam(){
-        var data 
-        var team = Math.trunc(Math.random() * (26508 - 1) + 1).toString();
-        axios.get("https://api.ftcscout.org/rest/v1/teams/" + team) 
-          .then(response => {
-            console.log(response.data);
-          });
+        while (true){
+          try{
+            var team = Math.trunc(Math.random() * (26508 - 1) + 1).toString();
+            axios.get("https://api.ftcscout.org/rest/v1/teams/" + team) 
+              .then(response => {
+              console.log(response);
+            });
+          break
+          } catch {
+            console.log("caught")
+          }
+        }
       }
     </script>
   </head>
