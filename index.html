@@ -27,15 +27,15 @@
           document.getElementById("number").innerHTML = response.data.number;
           document.getElementById("name").innerHTML = response.data.name;
           document.getElementById("year").innerHTML = response.data.rookieYear;
-          try{
             axios.get("https://api.ftcscout.org/rest/v1/teams/" + number + "/quick-stats")
               .then(response => {
-                console.log(response);
-                document.getElementById("score").interHTML = "this team did compete in the most recent season"
-              });
-              } catch {
-                document.getElementById("score").interHTML = "This team did not compete in the most recent season."
-              }
+                console.log(response.data)
+                document.getElementById("data").innerHTML = "This team has auto OPR of <b>" + Math.round(response.data.auto.value * 100)/100  + "</b>, teleop OPR of <b>" + Math.round(response.data.dc.value * 100)/100  + "</b>, endgame OPR of <b>" + Math.round(response.data.eg.value * 100)/100  + "</b>, and a overall NP OPR of <b>" + Math.round(response.data.tot.value * 100)/100  + "</b>"
+              })
+              .catch(err=> {
+                console.log("error");
+                document.getElementById("data").innerHTML = "This team did has not yet competed this season.";
+1              });
       });
       });
     }
@@ -56,7 +56,7 @@
         Your random FTC team, from <b><span id="citycountry"></span></b>, FTC team number <b><span id="number"></span></b>, is <b><span id="name"></span></b>. Their rookie year was <b><span id="year"></span></b>.
       </p>
       <p>
-        <span id="score"></span>
+        <span id="data"></span>
       </p>
 
     </div> 
