@@ -9,7 +9,7 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script language="javascript">
-      function getRandomTeam(){
+     function getRandomTeam(){
     axios.post("https://api.ftcscout.org/graphql", {
       query: `{
                 getBestName{
@@ -27,6 +27,15 @@
           document.getElementById("number").innerHTML = response.data.number;
           document.getElementById("name").innerHTML = response.data.name;
           document.getElementById("year").innerHTML = response.data.rookieYear;
+          try{
+            axios.get("https://api.ftcscout.org/rest/v1/teams/" + number + "/quick-stats")
+              .then(response => {
+                console.log(response);
+                document.getElementById("score").interHTML = "this team did compete in the most recent season"
+              });
+              } catch {
+                document.getElementById("score").interHTML = "This team did not compete in the most recent season."
+              }
       });
       });
     }
@@ -44,9 +53,12 @@
         Welcome to RandomFTC!
       </p>
       <p>
-        Your random FTC team, fromm <b><span id="citycountry"></span></b>, FTC team number <b><span id="number"></span></b>, is <b><span id="name"></span></b>. Their rookie year was <b><span id="year"></span></b>.
+        Your random FTC team, from <b><span id="citycountry"></span></b>, FTC team number <b><span id="number"></span></b>, is <b><span id="name"></span></b>. Their rookie year was <b><span id="year"></span></b>.
       </p>
-      
+      <p>
+        <span id="score"></span>
+      </p>
+
     </div> 
   </Body>
 </html>
